@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Rubik+Iso&family=Titan+One&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.input_field {
+  @apply rounded-full w-full px-1.25 py-1.125 text-0.9/1.25 font-medium text-pr/600;
+}
+.txt_inp_form {
+    @apply border border-slate-300 outline-none rounded-md px-4 py-1
+}
+.lbl_form {
+    @apply font-bold tracking-wide
+}
+.btn_auth_toggler {
+    @apply bg-teal-700 text-wh font-averia font-semibold
+}

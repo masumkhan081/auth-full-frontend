@@ -1,13 +1,11 @@
-import { Link, Outlet } from "react-router-dom"
+import { Link, Outlet } from "react-router-dom";
+import Nav from "../components/Nav";
 
 export default function Layout() {
-
   return (
-    <div className='font-averia bg-slate-300'>
-      <p className='text-lg text-center py-10 bg-teal-700 text-slate-300'>lets pretend i am nav</p>
-      <Link to="/app">app</Link>
+    <div className="w-full min-h-screen ">
+      <Nav/>
       <Outlet />
     </div>
-  )
+  );
 }
-

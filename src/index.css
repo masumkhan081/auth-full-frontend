@@ -1,18 +1,33 @@
-@import url('https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Rubik+Iso&family=Titan+One&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Rubik+Iso&family=Titan+One&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-.input_field {
-  @apply rounded-full w-full px-1.25 py-1.125 text-0.9/1.25 font-medium text-pr/600;
+:root {
+  font-family: Inter;
+  line-height: 1.5;
+  font-weight: 400;
+  background-color: white;
 }
+
 .txt_inp_form {
-    @apply border border-slate-300 outline-none rounded-md px-4 py-1
+  @apply border border-pr/300 font-averia outline-none rounded-md px-4 py-1;
 }
 .lbl_form {
-    @apply font-bold tracking-wide
+  @apply font-bold font-averia;
 }
 .btn_auth_toggler {
-    @apply bg-teal-700 text-wh font-averia font-semibold
+  @apply bg-pr/200 text-pr/600 rounded-md  text-lg font-averia font-normal tracking-02;
+}
+.btn_auth_submit {
+  @apply border border-pr/400 text-pr/600 rounded-md px-3 py-1 text-lg  w-1/2 mr-auto mt-4  font-rubik font-normal tracking-02;
+}
+.trans_eio {
+  @apply transition duration-700 ease-in-out;
+}
+.icn_sm {
+  @apply w-1.5 h-1.5 inline;
+}
+.icn_md {
+  @apply w-2.5 h-2.5 inline;
 }

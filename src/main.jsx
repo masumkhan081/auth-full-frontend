@@ -13,3 +13,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <RouterProvider router={routes}/>
 
 )
+
+// axios wrapper, login page, otp page, pass-rest page, new-pass page, footer, about-project page formik & validation, 

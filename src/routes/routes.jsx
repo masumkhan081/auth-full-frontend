@@ -1,30 +1,55 @@
 import { createBrowserRouter } from "react-router-dom";
-import ProtectedRoute from './ProtectedRoute.jsx'
+import ProtectedRoute from "./ProtectedRoute.jsx";
 import Profile from "../pages/Profile.jsx";
-import Landing from "../pages/Landing.jsx";
+import Landing from "../pages/Auth.jsx";
 import Layout from "../pages/Layout.jsx";
-
+import OTP from "../components/OTP.jsx";
+import Reset from "../components/Reset.jsx";
+import Recovery from "../components/Recovery.jsx";
+import About from "../pages/About.jsx";
+import Auth from "../pages/Auth.jsx";
+import AuthForms from "../components/AuthForms.jsx";
 
 export const routes = createBrowserRouter([
-    {
-        path: "/",
-        element: <Layout />,
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      {
+        path: "",
+        element: <About />,
+      },
+      {
+        path: "auth/",
+        element: <Auth />,
         children: [
-            {
-                path: "",
-                element: <Landing/>
-            },
-            {
-                path: "app",
-                element: <Profile />,
-            },
-            {
-                path: "secure",
-                element: <ProtectedRoute pass={false}><Profile /></ProtectedRoute>
-            }
-        ]
-    },
+          {
+            path: "",
+            element: <AuthForms />,
+          },
 
-
+          {
+            path: "account-recovery",
+            element: <Recovery />,
+          },
+          {
+            path: "reset-password",
+            element: <Reset />,
+          },
+          {
+            path: "verify-otp",
+            element: <OTP />,
+          },
+          {
+            path: "secure",
+            element: (
+              <ProtectedRoute pass={false}>
+                <Profile />
+              </ProtectedRoute>
+            ),
+          },
+        ],
+      },
+    ],
+  },
 ]);
-

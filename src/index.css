@@ -1,33 +1,50 @@
-@import url("https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Rubik+Iso&family=Titan+One&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Rubik+Iso&family=Titan+One&display=swap"); */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
+  background-color: beige;
   font-family: Inter;
   line-height: 1.5;
   font-weight: 400;
-  background-color: white;
+}
+
+.btn_nav {
+  @apply bg-orange-200 text-pr/600 text-center  px-2 py-1 rounded-md bg-gradient-to-b from-orange-800 text-sm font-averia tracking-02;
+}
+
+.title {
+  @apply btn_auth_toggler w-2/3 mx-auto pt-1 pb-0 shadow-md;
 }
 
 .txt_inp_form {
   @apply border border-pr/300 font-averia outline-none rounded-md px-4 py-1;
 }
+.nav_drop_down {
+  @apply block absolute top-[36px] left-[48px] right-[48px] h-auto border rounded-md bg-orange-200 border-yellow-600;
+}
 .lbl_form {
-  @apply font-bold font-averia;
+  @apply font-medium font-averia;
+}
+.title_auth_form {
+  @apply text-sm font-averia font-normal tracking-02 text-center;
 }
 .btn_auth_toggler {
-  @apply bg-pr/200 text-pr/600 rounded-md  text-lg font-averia font-normal tracking-02;
+  @apply bg-orange-200 text-orange-200 text-center  px-1 rounded-md bg-gradient-to-br from-orange-900 text-sm font-averia tracking-02;
+}
+.btn_auth_option {
+  @apply border border-teal-600 md:w-3/5 w-full rounded-md shadow-sm py-1;
 }
 .btn_auth_submit {
-  @apply border border-pr/400 text-pr/600 rounded-md px-3 py-1 text-lg  w-1/2 mr-auto mt-4  font-rubik font-normal tracking-02;
+  @apply border border-pr/400 text-pr/600 rounded-md px-3 py-1 text-lg w-1/2 mr-auto font-rubik font-normal tracking-02;
 }
 .trans_eio {
   @apply transition duration-700 ease-in-out;
 }
 .icn_sm {
-  @apply w-1.5 h-1.5 inline;
+  @apply w-1.5 h-1.5 inline mr-1;
 }
-.icn_md {
-  @apply w-2.5 h-2.5 inline;
+.icn_xm {
+  @apply w-1.125 h-1.125 inline mr-1;
 }

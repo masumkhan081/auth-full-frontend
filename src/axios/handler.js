@@ -1,8 +1,7 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:7000/api";
-
-axios.defaults.baseURL = BASE_URL;
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+// axios.defaults.baseURL = BASE_URL;
 
 const config = {
   headers: {
@@ -11,13 +10,34 @@ const config = {
   withCredentials: true,
 };
 
-const API = {
-  get: (url) => axios.get(BASE_URL + url, config),
-  post: (url, data) => axios.post(BASE_URL + url, data, config),
-  put: (url, data) => axios.put(BASE_URL + url, data, config),
-  delete: (url) => axios.delete(BASE_URL + url, config),
+export const postHandler = async (endpoint, body) => {
+  try {
+    const res = await axios.post(`${BASE_URL + endpoint}`, body, config);
+    return res;
+  } catch (error) {
+    return error.response;
+  }
 };
 
-const API_URL = "http://localhost:7000/api";
+export const getHandler = async (endpoint) => {
+  try {
+    const response = await axios.get(`${BASE_URL + endpoint}`, config);
+    return response;
+  } catch (err) {
+    return err;
+  }
+};
 
-export { API, API_URL };
+export const patchHandler = async (endpoint, data) => {
+  try {
+    const response = await axios.patch(
+      `${BASE_URL + endpoint}`,
+      data,
+      config
+    );
+
+    return response;
+  } catch (err) {
+    return err;
+  }
+};

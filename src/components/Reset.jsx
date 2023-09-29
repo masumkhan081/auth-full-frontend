@@ -1,10 +1,20 @@
 import React from "react";
-import Label from "../commonUI/Label";
+import Label from "../sharedUI/Label";
 //  icons
 import eye from "../assets/icons/eye.svg";
 
 export default function Reset() {
-  const handleSubmit = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    postHandler("/auth/reset-password", { email, password })
+      .then((data) => {
+        console.log("result:  ", data, " :: ", data.status);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <>
       <p className="btn_auth_toggler">Password Reset</p>

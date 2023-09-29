@@ -1,27 +1,42 @@
-import React from "react";
-import Label from "../commonUI/Label";
+import React, { useState } from "react";
+import Label from "../sharedUI/Label";
 
 export default function Recovery() {
-  const handleSubmit = () => {};
+
+  const [recoveryEmail, setRecoveryEmail] = useState("");
+  
+  const handleSubmit = () => {
+    e.preventDefault();
+    postHandler("/auth/account-recovery", { email, password })
+      .then((data) => {
+        console.log("result:  ", data, " :: ", data.status);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <>
       <p className="btn_auth_toggler">Account Recovery</p>
 
-      <form onSubmit={handleSubmit} className="flex-grow flex flex-col justify-center gap-4 pt-6 px-1.5">
+      <form
+        onSubmit={handleSubmit}
+        className="flex-grow flex flex-col justify-center gap-4 pt-6 px-1.5"
+      >
         <div className="flex flex-col gap-2">
           <Label txt="Email" />
 
-          <input
+          <Input
             type="email"
-            required
-            className="txt_inp_form"
-            placeholder="Enter Your Email"
+            value={recoveryEmail}
+            onChange={(e) => setRecoveryEmail(e.target.value)}
+            required={true}
+            style="txt_inp_form"
+            pc="Enter Your Email"
           />
         </div>
 
-        <button type="submit" className="btn_auth_submit trans_eio">
-          Submit
-        </button>
+        <Button type="submit" txt="Submit" style="btn_auth_submit trans_eio" />
       </form>
     </>
   );

@@ -1,13 +1,17 @@
 import React from "react";
-import close from "../assets/icons/close.svg";
-import Button from "../commonUI/Button";
-import Title from "../commonUI/Title";
+
+import { AiOutlineClose } from "react-icons/ai";
+import Button from "../sharedUI/Button";
+import Title from "../sharedUI/Title";
 
 export default function ({ onClose }) {
   return (
     <div className="w-full flex  flex-col sm:px-4 px-1 ">
       <Title txt="Live Projects">
-        <Button icon={close} onClick={() => onClose()}></Button>
+        <Button
+          icon=<AiOutlineClose className="w-1.25 h-1.25 text-orange-200 mb-0.125" />
+          onClick={() => onClose()}
+        ></Button>
       </Title>
 
       <div className="flex sm:flex-row flex-col">

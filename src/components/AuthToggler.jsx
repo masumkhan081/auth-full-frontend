@@ -1,23 +1,27 @@
 import React from "react";
+import Button from "../sharedUI/Button";
 
 export default function AuthToggler({ loginView, toggle }) {
+
+  console.log(">>   ",loginView);
   const activeStyle = (sign) =>
-    loginView == sign ? " shadow-lg shadow-orange-400 mb-0 " : "";
+    loginView == sign
+      ? "btn_auth_toggler border-x-8  mb-1  border-orange-900 "
+      : "btn_auth_toggler border-x-8  mt-1  border-orange-900";
 
   return (
-    <div className="grid grid-cols-2 border-8 border-orange-900 bg-orange-900">
-      <button
+    <div className="grid grid-cols-2  rounded-md ">
+      <Button
+        txt="Log In"
         onClick={() => toggle(true)}
-        className={`btn_auth_toggler ${activeStyle(true)}`}
-      >
-        Log In
-      </button>
-      <button
+        style={` ${activeStyle(true)}`}
+      />
+
+      <Button
+        txt="Sign Up"
         onClick={() => toggle(false)}
-        className={`btn_auth_toggler   ${activeStyle(false)}`}
-      >
-        Sign Up
-      </button>
+        style={`   ${activeStyle(false)}`}
+      />
     </div>
   );
 }

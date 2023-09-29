@@ -1,13 +1,32 @@
 import React from "react";
-import Label from "../commonUI/Label";
+import Label from "../sharedUI/Label";
+import { postHandler } from "../axios/handler";
 //  icons
 import eye from "../assets/icons/eye.svg";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import Input from "../sharedUI/Input";
+import Button from "../sharedUI/Button";
 //
 export default function Login() {
-  function handleSubmit(e) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(e.target["password"].value);
+
+    postHandler("/auth/login", { email, password })
+      .then((data) => {
+        console.log("result:  ", data, " :: ", data.status);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  function setTestData() {
+    setEmail("email@gmail.com");
+    setPassword("123456");
   }
 
   function passVisibility(e, id) {
@@ -20,14 +39,17 @@ export default function Login() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex-grow flex flex-col border-2 gap-4 md:pt-10 pt-4 px-1.5 ">
+    <form
+      onSubmit={handleSubmit}
+      className="flex-grow flex flex-col rounded-md border-4 border-t-0 border-orange-900 gap-4 md:pt-10 pt-4 px-1.5 "
+    >
       <div className="flex flex-col gap-2">
         <Label txt="Email" />
-        <input
+        <Input
           type="email"
-          required
-          className="txt_inp_form"
-          placeholder="Enter Your Email"
+          required={true}
+          value={email}
+          pc="Enter Your Email"
         />
       </div>
 
@@ -40,23 +62,30 @@ export default function Login() {
             </button>
           </div>
           <div>
-            <Link to="/account-recovery">Forget Password ?</Link>
+            <Link to="/auth/account-recovery" className="text-blue-400">
+              Forget Password ?
+            </Link>
           </div>
         </div>
-        <input
-          id="password"
-          name="password"
+        <Input
+          value={password}
           type="password"
           title="Must contain at least 6 or more characters"
-          required
-          placeholder="Set a password"
-          className="txt_inp_form flex-grow"
+          required={true}
+          pc="Set a password"
+          style=" flex-grow"
         />
       </div>
-
-      <button type="submit" className="btn_auth_submit ">
-        Log in
-      </button>
+      <div className="flex justify-between">
+        <Button
+          onClick={setTestData}
+          txt=" Test Data"
+          style=" btn_test_data "
+        ></Button>
+        <button type="submit" className=" btn_auth_submit ">
+          Log in
+        </button>
+      </div>
     </form>
   );
 }

@@ -1,6 +1,6 @@
 import React from "react";
-import Label from "../commonUI/Label";
-import { API } from "../axios/handler";
+import Label from "../sharedUI/Label";
+import { postHandler } from "../axios/handler";
 
 export default function OTP() {
   const [otp_state, setOtp] = React.useState(["", "", "", ""]);
@@ -21,20 +21,15 @@ export default function OTP() {
     }
   }
 
-  async function handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    API.post("/user/verify-otp", {
-      token: "",
-      code: otp_state.join(""),
-    })
+    postHandler("/auth/verify-otp", { email, password })
       .then((data) => {
-        console.log("verification done :  " + JSON.stringify(data));
+        console.log("result:  ", data, " :: ", data.status);
       })
       .catch((err) => {
-        if (err.response.status == 401) {
-          console.log("problem verifying otp");
-        }
+        console.log(err);
       });
   }
   return (

@@ -10,7 +10,7 @@ export default function AuthForms() {
   const status = location.state?.loginView;
   const [loginView, setLoginView] = useState(true);
 
-  useEffect(() => {
+  useEffect(() => { 
     setLoginView(status);
   }, [status]);
   //

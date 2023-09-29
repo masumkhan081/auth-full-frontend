@@ -12,7 +12,7 @@ import OTP from "../components/OTP";
 export default function Auth() {
   return (
     <div className="w-full flex-grow grid md:grid-cols-2 grid-cols-1 md:gap-3 gap-4 sm:px-3.0 px-1.0">
-      <div className="col-span-1 flex flex-col rounded-md border-4 border-orange-900">
+      <div className="col-span-1 flex flex-col rounded-md ">
         <Outlet />
       </div>
 

@@ -9,7 +9,7 @@ export default function IfElse({ loginView, toggle }) {
           Don't have an account ?
           <button
             onClick={() => toggle(false)}
-            className="ml-2 text-pr/600 bg-pr/200 px-3 py-0.125 rounded-md"
+            className="ml-2 teal-950 bg-pr/200 px-3 py-0.125 rounded-md"
           >
             Sign Up
           </button>
@@ -19,7 +19,7 @@ export default function IfElse({ loginView, toggle }) {
           Already have an account ?
           <button
             onClick={() => toggle(true)}
-            className="ml-2 text-pr/600 bg-pr/300 px-3 py-0.125 rounded-md"
+            className="ml-2 teal-950 bg-pr/300 px-3 py-0.125 rounded-md"
           >
             Log in
           </button>

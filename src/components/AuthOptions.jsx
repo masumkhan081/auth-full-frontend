@@ -11,7 +11,7 @@ export default function AuthOptions() {
 
   return (
     <>
-      <Title txt="Or, Quick Sign In With" />
+      <Title txt="Or, Quick Sign In With" style="neutral_title"/>
 
       <div className="w-full flex flex-col flex-grow justify-center items-center gap-3">
         <a

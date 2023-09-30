@@ -40,7 +40,7 @@ export default function Signup() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex-grow flex flex-col justify-center rounded-md border-4 border-t-0 border-orange-900 gap-4 pt-6 px-1.5"
+      className="flex-grow flex flex-col justify-center rounded-md border-4 border-t-0 border-orange-900 gap-4 pt-6 pb-3 px-1.5"
     >
       <div className="flex flex-col gap-1">
         <Label txt="Full Name" />

@@ -6,10 +6,14 @@ import Title from "../sharedUI/Title";
 
 export default function ({ onClose }) {
   return (
-    <div className="w-full flex  flex-col sm:px-4 px-1 ">
-      <Title txt="Live Projects">
+    <div className="w-full flex flex-col gap-4 sm:px-4 px-1 ">
+      <Title
+        txt="Live Projects"
+        style="neutral_title mt-4 rounded-md drop-shadow px-4 shadow-md"
+      >
         <Button
-          icon=<AiOutlineClose className="w-1.25 h-1.25 text-orange-200 mb-0.125" />
+          style={"ml-auto"}
+          icon=<AiOutlineClose className="w-1.25 h-1.25 text-orange-800 mb-0.125" />
           onClick={() => onClose()}
         ></Button>
       </Title>

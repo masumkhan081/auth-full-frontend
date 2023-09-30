@@ -1,9 +1,10 @@
 import React from "react";
 
-export default function Title({ txt, icon, children }) {
+export default function Title({ txt, icon, children, style }) {
   return (
-    <p className="title flex justify-between items-center">
-      <span className="flex-grow">{txt}</span>
+    <p className={`${style}  items-center `}>
+      {icon}
+      <span className=" text-center">{txt}</span>
       <>{children}</>
     </p>
   );

@@ -18,7 +18,7 @@ export const postHandler = async (endpoint, body) => {
   try {
 
     console.log("BASE_URL:", BASE_URL, endpoint);
-    const response = await axios.post(BASE_URL + endpoint, body, config);
+    const response = await axios.post(`https://auth-full-backend.vercel.app${endpoint}`, body, config);
     return response;
   } catch (error) {
     return error.response;

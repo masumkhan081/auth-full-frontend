@@ -1,8 +1,8 @@
 import React from "react";
 
 import { AiOutlineClose } from "react-icons/ai";
-import Button from "../sharedUI/Button";
-import Title from "../sharedUI/Title";
+import Button from "../common-ui/Button";
+import Title from "../common-ui/Title";
 
 export default function ({ onClose }) {
   return (
@@ -13,7 +13,7 @@ export default function ({ onClose }) {
       >
         <Button
           style={"ml-auto"}
-          icon=<AiOutlineClose className="w-1.25 h-1.25 text-orange-800 mb-0.125" />
+          icon={<AiOutlineClose className="w-1.25 h-1.25 text-orange-800 mb-0.125" />}
           onClick={() => onClose()}
         ></Button>
       </Title>

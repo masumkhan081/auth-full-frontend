@@ -1,26 +1,30 @@
 import React, { useState } from "react";
-import Input from "../sharedUI/Input";
-import Label from "../sharedUI/Label";
+import Input from "../common-ui/Input";
+import Label from "../common-ui/Label";
 // data
 import countryDials from "../data/country_dial_info.json";
 //  icons
 import eye from "../assets/icons/eye.svg";
 import Login from "./Login";
 import If from "./IfElse";
+import { postHandler } from "../axios/handler";
 //
 export default function Signup() {
   //
-  const [fullName, setFullName] = useState("");
+  const [fullName, setFullName] = useState(localStorage.getItem("fullName") || "");
   const [email, setEmail] = useState("");
   const [countryCode, setCountryCode] = useState("");
   const [contact, setContact] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  
+
   //
   function handleSubmit(e) {
     e.preventDefault();
     console.log(e.target["password"].value);
+    postHandler("/auth/register",{
+      fullName:"mk 081 whtvr !"
+    })
   }
 
   function passVisibility(e, id) {
@@ -37,6 +41,11 @@ export default function Signup() {
     setPassword("123456");
   }
 
+  function setterName(e) {
+    setFullName(e.target.value);
+    localStorage.setItem("fullName", e.target.value);
+  }
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -44,11 +53,23 @@ export default function Signup() {
     >
       <div className="flex flex-col gap-1">
         <Label txt="Full Name" />
-        <Input type="text" pc="Enter Full Name" value={fullName} onChange={(e)=>{setFullName(e.target.value)}} />
+        <Input
+          type="text"
+          pc="Enter Full Name"
+          value={fullName}
+          onChange={setterName}
+        />
       </div>
       <div className="flex flex-col gap-1">
         <Label txt="Email" />
-        <Input type="Email" pc="Enter Your Email" value={email} onChange={(e)=>{setEmail(e.target.value)}} />
+        <Input
+          type="Email"
+          pc="Enter Your Email"
+          value={email}
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
+        />
       </div>
       <div className="flex flex-col gap-1">
         <Label txt="Phone" />
@@ -90,7 +111,7 @@ export default function Signup() {
             pc="Set a password"
             style=" flex-grow"
             value={password}
-            onChange={() => {
+            onChange={(e) => {
               setPassword(e.target.value);
             }}
           />
@@ -109,7 +130,7 @@ export default function Signup() {
             pc="Password again"
             style=" flex-grow"
             value={confirmPassword}
-            onChange={() => {
+            onChange={(e) => {
               setConfirmPassword(e.target.value);
             }}
           />

@@ -20,8 +20,16 @@ export const routes = createBrowserRouter([
         element: <About />,
       },
       {
+        path: "profile",
+        element: <ProtectedRoute accessTo={"profile"}><Profile /></ProtectedRoute>,
+      },
+      {
         path: "auth/",
-        element: <Auth />,
+        element: (
+          <ProtectedRoute accessTo={"auth"}>
+            <Auth />
+          </ProtectedRoute>
+        ),
         children: [
           {
             path: "",
@@ -39,14 +47,6 @@ export const routes = createBrowserRouter([
           {
             path: "verify-otp",
             element: <OTP />,
-          },
-          {
-            path: "secure",
-            element: (
-              <ProtectedRoute pass={false}>
-                <Profile />
-              </ProtectedRoute>
-            ),
           },
         ],
       },

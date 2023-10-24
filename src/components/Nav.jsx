@@ -1,62 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import Cookies from "js-cookie";
 import menu from "../assets/icons/menu.svg";
 import close from "../assets/icons/close.svg";
-import CustomLink from "../sharedUI/CustomLink";
-import Button from "../sharedUI/Button";
+import CustomLink from "../common-ui/CustomLink";
+import Button from "../common-ui/Button";
 import ProjectList from "./ProjectList";
 import { BsInfoCircle, BsList, BsListNested, BsInfoLg } from "react-icons/bs";
 import { BiSolidUserPlus, BiUserPlus, BiLogInCircle } from "react-icons/bi";
 import { RiLogoutCircleRLine } from "react-icons/ri";
-import { AiFillHome,AiOutlineClose } from "react-icons/ai";
-import {GiHamburgerMenu} from 'react-icons/gi'
+import { AiFillHome, AiOutlineClose } from "react-icons/ai";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { getHandler } from "../axios/handler";
+import Loader from "./Loader";
+import { authContext } from "../context/provider";
+const tokenHeader = import.meta.env.VITE_TOKEN_HEADER;
 
 export default function Nav() {
+  const { user, error, loading } = React.useContext(authContext);
+
   const [dropDown, setDropDown] = useState(false);
   const [menuFolded, setMenuFolded] = useState(true);
   const navigate = useNavigate();
-
-  const navLinks = [
-    // {
-    //   text: "About",
-    //   icon: <BsInfoCircle className="nav_icn"/>,
-    //   click: () => {
-    //     navigate("/about");
-    //   },
-    // },
-    {
-      text: "Other Projects",
-      icon: <BsListNested className="nav_icn" />,
-      click: () => {
-        setDropDown(!dropDown);
-      },
-    },
-    {
-      text: "Sign Up",
-      icon: <BiUserPlus className="nav_icn" />,
-      click: () => {
-        toAuthForm(false);
-        setMenuFolded(true);
-      },
-    },
-    {
-      text: "Log In",
-      icon: <BiLogInCircle className="nav_icn" />,
-      click: () => {
-        toAuthForm(true);
-        setMenuFolded(true);
-      },
-    },
-    {
-      text: "Log Out",
-      icon: <RiLogoutCircleRLine className="nav_icn" />,
-      click: () => {
-        toAuthForm(false);
-        setMenuFolded(true);
-      },
-    },
-  ];
 
   function toAuthForm(loginView) {
     navigate("/auth", { state: { loginView } });
@@ -75,17 +40,47 @@ export default function Nav() {
         </CustomLink>
       </div>
       <div className={styLogic()}>
-        {navLinks.map((link, ind) => {
-          return (
-            <Button
-              key={ind}
-              onClick={() => link.click()}
-              txt={link.text}
-              icon={link.icon}
-              style={"btn_nav"}
-            />
-          );
-        })}
+        <Button
+          onClick={() => setDropDown(!dropDown)}
+          txt="Other Projects"
+          icon={<BsListNested className="nav_icn" />}
+          style={"btn_nav"}
+        />
+        {!user && (
+          <Button
+            onClick={() => {
+              toAuthForm(true);
+              setMenuFolded(true);
+            }}
+            txt="Log In"
+            icon={<BiLogInCircle className="nav_icn" />}
+            style={"btn_nav"}
+          />
+        )}
+        {!user && (
+          <Button
+            onClick={() => {
+              toAuthForm(false);
+              setMenuFolded(true);
+            }}
+            txt="Sign Up"
+            icon={<BiUserPlus className="nav_icn" />}
+            style={"btn_nav"}
+          />
+        )}
+        {user && (
+          <Button
+            onClick={() => {
+              toAuthForm(false);
+              setMenuFolded(true);
+              Cookies.remove(tokenHeader);
+              getHandler("/auth/logout");
+            }}
+            txt="Log Out"
+            icon={<RiLogoutCircleRLine className="nav_icn" />}
+            style={"btn_nav"}
+          />
+        )}
 
         <div className={dropDown ? "nav_drop_down" : `hidden`}>
           <ProjectList
@@ -98,7 +93,13 @@ export default function Nav() {
       </div>
       <div className="sm:hidden block">
         <Button
-          icon={menuFolded ? <GiHamburgerMenu className="nav_icn"/> : <AiOutlineClose className="nav_icn"/>}
+          icon={
+            menuFolded ? (
+              <GiHamburgerMenu className="nav_icn" />
+            ) : (
+              <AiOutlineClose className="nav_icn" />
+            )
+          }
           onClick={() => setMenuFolded(!menuFolded)}
         />
       </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import Title from "../sharedUI/Title";
+import Title from "../common-ui/Title";
 import { HiMiniQueueList } from "react-icons/hi2";
 import { FaBookReader, FaHandPointRight } from "react-icons/fa";
 import { FaRightLong } from "react-icons/fa6";
@@ -20,7 +20,7 @@ export default function About() {
         <Title
           txt="Whats Been Used"
           style="neutral_title "
-          icon=<HiMiniQueueList className="mr-2" />
+          icon={<HiMiniQueueList className="mr-2" />}
         />
 
         <ul className="space-y-3 w-full">

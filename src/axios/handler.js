@@ -1,8 +1,11 @@
 import axios from "axios";
 
-const BASE_URL = import.meta.env.VITE_BASE_URL;
+// const BASE_URL = import.meta.env.VITE_BASE_URL;
+const BASE_URL = import.meta.env.VITE_BASE_LIVE_URL;
 // axios.defaults.baseURL = BASE_URL;
 //  axios.defaults.withCredentials = true
+
+
 
 const config = {
   headers: {
@@ -13,7 +16,9 @@ const config = {
 
 export const postHandler = async (endpoint, body) => {
   try {
-    const response = await axios.post(`${BASE_URL + endpoint}`, body, config);
+
+    console.log("BASE_URL:", BASE_URL, endpoint);
+    const response = await axios.post(BASE_URL + endpoint, body, config);
     return response;
   } catch (error) {
     return error.response;

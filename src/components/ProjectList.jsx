@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import { AiOutlineClose } from "react-icons/ai";
 import Button from "../common-ui/Button";
 import Title from "../common-ui/Title";
+import { authContext } from "../context/provider";
 
-export default function ({ onClose }) {
+export default function () {
+
+  const { setOtherProjects } = useContext(authContext);
+
   return (
     <div className="w-full flex flex-col gap-4 sm:px-4 px-1 ">
       <Title
@@ -14,7 +18,7 @@ export default function ({ onClose }) {
         <Button
           style={"ml-auto"}
           icon={<AiOutlineClose className="w-1.25 h-1.25 text-orange-800 mb-0.125" />}
-          onClick={() => onClose()}
+          onClick={() => setOtherProjects(false)}
         ></Button>
       </Title>
 

@@ -1,13 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Label from "../common-ui/Label";
 //  icons
 import eye from "../assets/icons/eye.svg";
+import { useLocation } from 'react-router-dom';
+import { getHandler, postHandler } from "../axios/handler";
 
 export default function Reset() {
+
+  const useQuery = () => new URLSearchParams(useLocation().search);
+  const token = useQuery().get("token")
+  console.log("prm;  ", token);
+
+  const [password, setPassword] = useState("");
+  const [confirmpassword, setConfirmPassword] = useState("");
+  // 
+  const [resetLinkValidity, setResetLinkValidity] = useState("loading")
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    postHandler("/auth/reset-password", { email, password })
+    postHandler("/auth/reset", { password })
       .then((data) => {
         console.log("result:  ", data, " :: ", data.status);
       })
@@ -15,23 +26,23 @@ export default function Reset() {
         console.log(err);
       });
   };
-  return (
-    <>
+  useEffect(() => {
+    getHandler("/auth/recovery/" + token)
+      .then((data) => {
+        setResetLinkValidity(data.response.data.message)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  })
+
+  if (resetLinkValidity === "valid") {
+    return <>
       <p className="btn_auth_toggler">Password Reset</p>
       <form
         onSubmit={handleSubmit}
         className="flex-grow flex flex-col justify-center gap-4 py-3.0 px-1.5"
       >
-        <div className="flex flex-col gap-2">
-          <Label txt="Email" />
-
-          <input
-            type="email"
-            required
-            className="txt_inp_form"
-            placeholder="Enter Your Email"
-          />
-        </div>
         <div className="flex flex-col gap-2">
           <Label txt="Password" />
           <div className="flex gap-2 justify-between">
@@ -73,5 +84,12 @@ export default function Reset() {
         </button>
       </form>
     </>
-  );
+  }
+  else if (resetLinkValidity === "loading") {
+    return <span>loading</span>
+  }
+  else {
+    return <span>{resetLinkValidity}</span>
+
+  }
 }

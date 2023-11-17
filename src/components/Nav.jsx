@@ -17,10 +17,8 @@ import { authContext } from "../context/provider";
 const tokenHeader = import.meta.env.VITE_TOKEN_HEADER;
 
 export default function Nav() {
-  const { user, error, loading } = React.useContext(authContext);
-
-  const [dropDown, setDropDown] = useState(false);
-  const [menuFolded, setMenuFolded] = useState(true);
+  // 
+  const { user, logout, visibleOtherProjects, setOtherProjects, menuFolded, setMenuFolded, error, loading } = useContext(authContext);
   const navigate = useNavigate();
 
   function toAuthForm(loginView) {
@@ -41,7 +39,7 @@ export default function Nav() {
       </div>
       <div className={styLogic()}>
         <Button
-          onClick={() => setDropDown(!dropDown)}
+          onClick={() => setOtherProjects(!visibleOtherProjects)}
           txt="Other Projects"
           icon={<BsListNested className="nav_icn" />}
           style={"btn_nav"}
@@ -71,10 +69,8 @@ export default function Nav() {
         {user && (
           <Button
             onClick={() => {
-              toAuthForm(false);
-              setMenuFolded(true);
-              Cookies.remove(tokenHeader);
-              getHandler("/auth/logout");
+              logout();
+              toAuthForm(true);
             }}
             txt="Log Out"
             icon={<RiLogoutCircleRLine className="nav_icn" />}
@@ -82,7 +78,7 @@ export default function Nav() {
           />
         )}
 
-        <div className={dropDown ? "nav_drop_down" : `hidden`}>
+        <div className={visibleOtherProjects ? "nav_drop_down" : `hidden`}>
           <ProjectList
             onClose={() => {
               setDropDown(false);

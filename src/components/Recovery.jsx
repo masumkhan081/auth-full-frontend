@@ -1,18 +1,26 @@
 import React, { useState } from "react";
 import Label from "../common-ui/Label";
+import Input from "../common-ui/Input";
+import Button from "../common-ui/Button";
+import { postHandler } from "../axios/handler";
 
 export default function Recovery() {
 
   const [recoveryEmail, setRecoveryEmail] = useState("");
-  
-  const handleSubmit = () => {
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    postHandler("/auth/account-recovery", { email, password })
+    postHandler("/auth/recovery", { email: recoveryEmail })
       .then((data) => {
-        console.log("result:  ", data, " :: ", data.status);
+        if (data.status == 200) {
+          alert("A recovery mail has been sent")
+        }
+        else {
+          alert("Failed sending recovery mail")
+        }
       })
       .catch((err) => {
-        console.log(err);
+        alert("Error sending recovery mail")
       });
   };
   return (
@@ -24,7 +32,7 @@ export default function Recovery() {
         className="flex-grow flex flex-col justify-center gap-4 pt-6 px-1.5"
       >
         <div className="flex flex-col gap-2">
-          <Label txt="Email" />
+          <Label txt="Email masumkhan081@gmail.com" />
 
           <Input
             type="email"

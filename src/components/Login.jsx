@@ -1,44 +1,39 @@
 import React from "react";
 import Label from "../common-ui/Label";
 import { getHandler, postHandler } from "../axios/handler";
+import { authContext } from '../context/provider'
 //  icons
 import eye from "../assets/icons/eye.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Input from "../common-ui/Input";
 import Button from "../common-ui/Button";
 //
 export default function Login() {
-  const [email, setEmail] = useState("");
+  // 
+  const { setTheUser, notify } = React.useContext(authContext);
+  const [email, setEmail] = useState(localStorage.getItem("loginEmail") || "");
   const [password, setPassword] = useState("");
-  const [x, setX] = useState("");
+  const navigate = useNavigate()
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // getHandler("/auth/login")
-    //   .then((data) => {
-    //     console.log(JSON.stringify(data)+"   ops !");
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-
     postHandler("/auth/login", { email, password })
       .then((data) => {
-        // setX(JSON.stringify(data));
-        console.log(JSON.stringify(data));
-        // console.log("result:  ", data, " :: ", data.status);
+        setTheUser(data);
+        notify("Dick got in the right way")
+        console.log("posthandler:  ", JSON.stringify(data.status));
+        data.status == 200 ? navigate("/profile") : null
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  function setTestData() {
-    // setEmail("email@gmail.com");
-    // setPassword("123456");
-    setEmail("masumkhan081@gmail.com");
+  function setTestData(e) {
+    e.preventDefault();
+    // setEmail({ target: { value: "email@gmail.com" } });  
+    setEmail({ target: { value: "masumkhan081@gmail.com" } });
     setPassword("123456");
   }
 
@@ -51,19 +46,24 @@ export default function Login() {
     }, 2000);
   }
 
+  function setterEmail(e) {
+    setEmail(e.target.value);
+    localStorage.setItem("loginEmail", e.target.value);
+  }
+
   return (
     <form
       onSubmit={handleSubmit}
       className="flex-grow flex flex-col rounded-md border-4 border-t-0 border-orange-900 gap-4 md:pt-10 pt-4 px-1.5 "
     >
-      <span>{x}</span>
+
       <div className="flex flex-col gap-2">
         <Label txt="Email" />
         <Input
           type="email"
           required={true}
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={setterEmail}
           pc="Enter Your Email"
         />
       </div>
@@ -83,6 +83,7 @@ export default function Login() {
           </div>
         </div>
         <Input
+          id="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           type="password"
